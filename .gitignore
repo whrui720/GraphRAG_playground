@@ -1,0 +1,10 @@
+venv/
+.env
+*.pyc
+__pycache__/
+.ipynb_checkpoints/
+output/
+# GraphRAG index artifacts (can be large)
+ragtest/output/
+ragtest/cache/
+*.parquet

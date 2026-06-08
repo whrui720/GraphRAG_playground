@@ -1,0 +1,183 @@
+# GraphRAG Playground
+
+A hands-on environment for exploring [Microsoft GraphRAG](https://github.com/microsoft/graphrag) — a graph-based retrieval-augmented generation system that builds a knowledge graph from your documents and uses it to answer questions with richer context than naive vector RAG.
+
+## How it works
+
+```
+Documents → LLM extraction → Knowledge Graph → Community summaries
+                                                       ↓
+                              Query ──────────→ Global / Local search
+```
+
+- **Global search** — reasons over the entire community hierarchy; great for broad, thematic questions
+- **Local search** — starts from specific entities and traverses relationships; great for focused questions about people, places, or concepts
+
+## Setup
+
+### 1. Activate the virtual environment
+
+```bash
+# Windows (Git Bash / PowerShell)
+source venv/Scripts/activate
+
+# macOS / Linux
+source venv/bin/activate
+```
+
+### 2. Set your API key
+
+```bash
+cp .env.example .env
+# Edit .env and set GRAPHRAG_API_KEY=your-openai-key
+```
+
+GraphRAG uses OpenAI's API by default. After indexing you can switch to any OpenAI-compatible endpoint in `ragtest/settings.yaml`.
+
+## Quick start
+
+```bash
+# Step 1: Initialise the project & copy sample documents
+python examples/01_setup_and_index.py
+
+# Step 2: Run the indexer (calls LLM — costs ~$1-2 for the sample docs)
+python -m graphrag index --root ragtest
+
+# Step 3: Ask a global (thematic) question
+python examples/02_global_search.py "What are the main themes across all documents?"
+
+# Step 4: Ask a local (entity-focused) question
+python examples/03_local_search.py "What was Julius Caesar's relationship with Pompey?"
+
+# Step 5: Inspect the graph artefacts
+python examples/04_inspect_graph.py
+```
+
+## Standard RAG comparison
+
+```bash
+# Demo standard RAG on its own
+python examples/05_standard_rag_demo.py
+
+# Run the full benchmark (both systems, 10 questions)
+python examples/06_benchmark.py
+# → saves output/benchmark_results.json
+
+# Skip one system if not yet indexed
+python examples/06_benchmark.py --skip-graphrag
+python examples/06_benchmark.py --skip-rag
+```
+
+## Visualizer (Streamlit)
+
+A multi-page web app for exploring all three RAG variants side-by-side.
+
+```bash
+pip install -r requirements.txt   # adds streamlit + pyvis if not already installed
+streamlit run app/streamlit_app.py
+# or:
+python run_app.py
+```
+
+Pages:
+
+- **Compare Answers** — same query, three variants, side-by-side (cached benchmark or live)
+- **Retrieval Context** — what each variant actually retrieved: chunks + scores (Standard RAG), method (GraphRAG), thinking + nodes (Vectorless)
+- **Index Structure** — interactive knowledge graph, searchable chunk corpus with 2D PCA, vectorless hierarchy tree
+- **Benchmark Analytics** — latency, answer-length, entity-coverage heatmap, token usage
+
+The sidebar **Mode** toggle switches between **Cached** (no API calls) and **Live** (runs real queries — costs credits).
+
+## Interactive notebooks
+
+```bash
+# GraphRAG walkthrough
+jupyter notebook notebooks/explore_graphrag.ipynb
+
+# Side-by-side comparison with visualizations
+jupyter notebook notebooks/comparison.ipynb
+```
+
+`comparison.ipynb` produces:
+- Answer length by question type
+- Entity coverage heatmap
+- Latency comparison
+- Side-by-side answer display
+- Knowledge graph visualization
+- Community hierarchy charts
+- Standard RAG retrieval heatmap
+
+## Sample data
+
+Three rich documents in `data/sample_texts/`:
+
+| File | Topic | Good for testing |
+|------|-------|-----------------|
+| `ancient_rome.txt` | Julius Caesar, Roman Republic → Empire | Political relationships, historical events |
+| `ai_history.txt` | AI history from 1956 to LLMs | Research lineages, institutional connections |
+| `climate_science.txt` | Climate change science & policy | Causal relationships, multi-domain synthesis |
+
+## Project structure
+
+```
+GraphRAG_playground/
+├── data/
+│   └── sample_texts/       ← source documents
+├── examples/
+│   ├── 01_setup_and_index.py
+│   ├── 02_global_search.py
+│   ├── 03_local_search.py
+│   ├── 04_inspect_graph.py
+│   ├── 05_standard_rag_demo.py   ← vector RAG baseline
+│   └── 06_benchmark.py           ← runs both systems, saves JSON
+├── rag/
+│   ├── __init__.py
+│   └── standard_rag.py     ← chunk → embed → cosine → LLM
+├── app/                    ← Streamlit visualizer
+│   ├── streamlit_app.py    ← landing page
+│   ├── lib/                ← cached loaders, live runners, pyvis graph
+│   └── pages/              ← Compare/Retrieval/Structure/Analytics
+├── run_app.py              ← `python run_app.py` to launch the visualizer
+├── notebooks/
+│   ├── explore_graphrag.ipynb
+│   └── comparison.ipynb    ← visualizations: both systems side-by-side
+├── output/
+│   ├── rag_index/          ← cached embeddings (auto-created)
+│   ├── benchmark_results.json
+│   └── viz_*.png           ← saved charts
+├── ragtest/                ← created by example 01
+│   ├── input/              ← documents to index
+│   ├── settings.yaml       ← GraphRAG config
+│   ├── output/             ← parquet artefacts (entities, rels, communities)
+│   └── cache/              ← LLM response cache
+├── venv/                   ← Python virtual environment
+├── .env                    ← your API key (gitignored)
+├── .env.example
+└── requirements.txt
+```
+
+## Cost & time estimates (sample docs, GPT-4o-mini)
+
+| Phase | Time | Approx cost |
+|-------|------|-------------|
+| Indexing (3 docs) | 5-15 min | $0.50-2.00 |
+| Each query | 5-30 sec | $0.01-0.10 |
+
+Indexing is cached — subsequent runs only process changed documents.
+
+## Useful graphrag CLI commands
+
+```bash
+# Initialise a new project
+python -m graphrag init --root ragtest
+
+# Index / re-index
+python -m graphrag index --root ragtest
+
+# Tune prompts to your domain
+python -m graphrag prompt-tune --root ragtest --domain "your domain"
+
+# Query directly from CLI
+python -m graphrag query --root ragtest --method global --query "your question"
+python -m graphrag query --root ragtest --method local  --query "your question"
+```

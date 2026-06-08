@@ -1,0 +1,25 @@
+Climate Change: Science, Impacts, and Responses
+
+Climate change refers to long-term shifts in global temperatures and weather patterns. While some climate variation occurs naturally, since the Industrial Revolution human activities have become the primary driver of climate change, primarily through the burning of fossil fuels.
+
+The Intergovernmental Panel on Climate Change (IPCC), established in 1988 by the United Nations Environment Programme (UNEP) and the World Meteorological Organization (WMO), coordinates the work of thousands of scientists worldwide. Their assessment reports synthesize the state of climate science. The IPCC's Sixth Assessment Report (AR6), completed in 2021-2022, confirmed with overwhelming confidence that human influence has warmed the climate at an unprecedented rate.
+
+The greenhouse effect is the fundamental mechanism of climate change. Greenhouse gases — primarily carbon dioxide (CO2), methane (CH4), nitrous oxide (N2O), and water vapor — trap heat in Earth's atmosphere. Without any greenhouse effect, Earth's average temperature would be around -18°C rather than the current +15°C. However, the enhanced greenhouse effect from human emissions is pushing temperatures beyond the range of the past 800,000 years.
+
+James Hansen, a NASA scientist, first testified before the U.S. Congress about global warming in 1988, bringing the issue to public attention. Svante Arrhenius, a Swedish chemist, had actually calculated in 1896 that doubling CO2 would raise global temperatures by 5-6°C — remarkably close to modern estimates. Charles Keeling began continuous measurements of atmospheric CO2 at Mauna Loa Observatory in 1958; the resulting "Keeling Curve" shows the steady rise from 315 ppm in 1958 to over 420 ppm today.
+
+The impacts of climate change are widespread and accelerating. Global average surface temperature has increased by approximately 1.1°C above pre-industrial levels. Arctic sea ice extent has declined dramatically, with summer minimums decreasing roughly 13% per decade since 1979. Greenland and Antarctic ice sheets are losing mass at accelerating rates. Sea levels are rising, threatening coastal cities and island nations. Extreme weather events — heatwaves, droughts, floods, hurricanes — are becoming more frequent and intense.
+
+Ocean acidification is a critical but often overlooked consequence. As oceans absorb excess CO2 (they have absorbed roughly 30% of human emissions), seawater becomes more acidic. This threatens marine ecosystems, particularly coral reefs and shellfish that build calcium carbonate structures. The Great Barrier Reef has experienced unprecedented bleaching events in recent years.
+
+The Paris Agreement, adopted in 2015 under the United Nations Framework Convention on Climate Change (UNFCCC), represents a landmark international accord. Countries committed to limiting warming to well below 2°C above pre-industrial levels, with efforts to limit warming to 1.5°C. However, current national pledges — Nationally Determined Contributions (NDCs) — are insufficient to meet these targets.
+
+The energy transition away from fossil fuels is central to climate mitigation. Renewable energy, particularly solar and wind power, has experienced dramatic cost reductions over the past decade. Solar photovoltaic costs have fallen over 90% since 2010. Elon Musk's Tesla has accelerated the transition to electric vehicles. However, sectors like aviation, shipping, and heavy industry remain difficult to decarbonize.
+
+Carbon capture and storage (CCS) technologies, along with approaches like direct air capture, may be necessary to remove CO2 already in the atmosphere. The Climeworks facility in Iceland is among the world's first direct air capture plants. Regenerative agriculture and reforestation also offer natural carbon sequestration pathways.
+
+Climate justice is increasingly recognized as inseparable from climate science. Developing nations contribute least to emissions but face the most severe impacts. Low-lying Pacific island nations like Tuvalu and Kiribati face existential threats from sea-level rise. Indigenous communities worldwide are on the frontlines of climate impacts.
+
+Greta Thunberg's Fridays for Future movement, beginning in 2018, catalyzed a global youth climate movement. Her speech at the 2019 UN Climate Action Summit captured the frustration of young people who will live longest with the consequences: "You have stolen my dreams and my childhood with your empty words."
+
+Scientists including Michael Mann have faced harassment and attacks from those who dispute climate science, highlighting how climate change has become deeply politicized despite remarkable scientific consensus.

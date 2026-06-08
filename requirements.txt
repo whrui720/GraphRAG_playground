@@ -1,0 +1,11 @@
+graphrag
+google-generativeai
+jupyter
+ipykernel
+python-dotenv
+matplotlib
+seaborn
+streamlit
+pyvis
+pandas
+pyarrow

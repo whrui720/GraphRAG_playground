@@ -1,0 +1,31 @@
+A Brief History of Artificial Intelligence
+
+The field of artificial intelligence was formally founded at the Dartmouth Conference in 1956. John McCarthy, who coined the term "artificial intelligence," organized the conference along with Marvin Minsky, Nathaniel Rochester, and Claude Shannon. The conference proposed that "every aspect of learning or any other feature of intelligence can in principle be so precisely described that a machine can be made to simulate it."
+
+Early AI research in the 1950s and 1960s was characterized by optimism. Alan Turing had proposed the Turing Test in 1950 as a measure of machine intelligence. Early programs like the Logic Theorist (created by Allen Newell, Herbert Simon, and Cliff Shaw) and the General Problem Solver demonstrated that computers could simulate certain aspects of human reasoning.
+
+Herbert Simon and Allen Newell at Carnegie Mellon University were pioneers in symbolic AI, the idea that intelligence could be represented as manipulation of symbols according to rules. Their work laid the groundwork for expert systems, which became commercially important in the 1980s.
+
+John McCarthy at MIT developed LISP, a programming language that became fundamental to AI research. McCarthy also developed the concept of time-sharing and made major contributions to the formalization of logic-based AI.
+
+Marvin Minsky, also at MIT, contributed foundational work on neural networks and later co-founded the MIT Artificial Intelligence Laboratory with McCarthy. His book "The Society of Mind" proposed that intelligence emerges from the interaction of many simple processes.
+
+The first AI winter occurred in the 1970s when funding dried up after researchers failed to deliver on overly optimistic promises. The Lighthill Report in the UK was particularly damaging, leading to significant cuts in AI research funding.
+
+The 1980s saw a resurgence through expert systems — programs that encoded the knowledge of human experts in rule-based systems. DENDRAL, developed at Stanford, could identify chemical compounds. MYCIN, also from Stanford, diagnosed blood infections and recommended treatments. The commercialization of expert systems drove significant investment.
+
+Another AI winter struck in the late 1980s and early 1990s as expert systems proved brittle and expensive to maintain. The collapse of the Lisp machine market eliminated many AI hardware companies.
+
+Geoffrey Hinton, Yann LeCun, and Yoshua Bengio — often called the "Godfathers of AI" — persisted with neural network research during the winters. Hinton's work on backpropagation and deep learning would eventually revolutionize the field. LeCun developed convolutional neural networks (CNNs) that excel at image recognition. Bengio contributed foundational work on recurrent neural networks and attention mechanisms.
+
+The modern era of AI began with the 2012 ImageNet competition, where AlexNet — developed by Hinton's group at the University of Toronto — dramatically outperformed competitors using deep learning. This demonstrated the power of deep neural networks when combined with large datasets and GPU computing.
+
+DeepMind, founded in London in 2010 and acquired by Google in 2014, became famous for AlphaGo, which defeated world champion Go player Lee Sedol in 2016. Their reinforcement learning approaches have since been applied to protein folding (AlphaFold), which solved a 50-year-old grand challenge in biology.
+
+OpenAI, founded in 2015 by Elon Musk, Sam Altman, Greg Brockman, and others, pursued artificial general intelligence research. Their GPT series of large language models, culminating in GPT-4, demonstrated remarkable language understanding and generation capabilities. ChatGPT, released in November 2022, became the fastest-growing consumer application in history.
+
+Anthropic, founded in 2021 by former OpenAI researchers including Dario Amodei and Daniela Amodei, focuses on AI safety research alongside model development. Their Claude models emphasize helpfulness, harmlessness, and honesty.
+
+The transformer architecture, introduced in the "Attention Is All You Need" paper by Google researchers in 2017, became the foundation for most modern large language models. Researchers including Ashish Vaswani, Noam Shazeer, and Jakob Uszkoreit co-authored this seminal paper.
+
+Today AI permeates society through recommendation systems, medical diagnosis, autonomous vehicles, language translation, and creative tools. The rapid progress continues to raise important questions about safety, alignment, economic disruption, and the long-term implications of increasingly capable AI systems.
