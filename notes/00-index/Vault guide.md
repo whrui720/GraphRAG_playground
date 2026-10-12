@@ -15,6 +15,7 @@ This repo is both a Python project and an Obsidian vault. **Code is the source o
    - hides `venv/`, caches and index artifacts from search, the graph and quick switcher.
    - points the core **Templates** plugin at `notes/00-index/Templates`.
    - colors the graph by variant family.
+   - enables the CSS snippet `.obsidian/snippets/rag-vault.css` (Settings → Appearance → CSS snippets), which caps Mermaid diagrams at a readable size and shows the light or dark version of each figure to match your theme. If you had the vault open when the snippet was added, toggle it once or reload Obsidian.
 3. Optional community plugins (Settings → Community plugins → Browse):
    - **Dataview**, which renders the live tables in [[RAG map]] and the *Results* section of implemented variants. Without it those blocks show as code; [[Leaderboard]] is plain Markdown and always works.
    - **Templater**, only if you prefer it to core Templates.
@@ -25,6 +26,7 @@ This repo is both a Python project and an Obsidian vault. **Code is the source o
 ```
 notes/
 ├── 00-index/          RAG map (start here), Glossary, Leaderboard (generated), this guide, Templates/
+├── assets/figures/    generated SVG figures (do not edit; see rag/viz/figures.py)
 ├── variants/<family>/ one note per variant: baseline, retrieval-quality, index, control-flow,
 │                      modality, architecture, alternative, cross-cutting
 └── results/<variant>/ one generated note per benchmark run (do not edit)
@@ -49,6 +51,16 @@ python -m pytest
 ```
 
 `tests/test_vault.py` checks every note: valid frontmatter, allowed property values, wikilinks that resolve, relative links (including code links) that exist, and Dataview queries that only use real fields.
+
+**Regenerate figures** (offline; light and dark versions of each):
+
+```bash
+python -m rag.viz.figures      # writes notes/assets/figures/*.svg
+```
+
+Figures are drawn by code from formulas or real repo data (chunk embeddings, the GraphRAG graph, the vectorless index, the latest benchmark). Notes embed them as `![[name-light.svg]]![[name-dark.svg]]`. The benchmark figure is redrawn automatically by `06_benchmark.py`.
+
+**Diagram conventions:** keep Mermaid diagrams small (a few nodes, short labels, top-down for chains longer than ~4 steps) so they render near 1:1. Obsidian ships Mermaid 11.x.
 
 **Add a variant:**
 

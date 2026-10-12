@@ -24,12 +24,11 @@ Build a tree **bottom-up**. Embed the chunks, cluster similar ones, have an LLM 
 
 ```mermaid
 flowchart BT
-  c1[chunk] & c2[chunk] & c3[chunk] --> s1[summary A]
-  c4[chunk] & c5[chunk] --> s2[summary B]
-  c6[chunk] & c7[chunk] --> s3[summary C]
-  s1 & s2 --> r1[summary AB]
-  s3 --> r2[summary C']
-  r1 & r2 --> root[root summary]
+  c1[c1] & c2[c2] --> A[summary A]
+  c3[c3] & c4[c4] --> B[summary B]
+  c5[c5] & c6[c6] --> C[summary C]
+  A & B --> AB[summary AB]
+  AB & C --> R[root]
 ```
 
 ## Formulation

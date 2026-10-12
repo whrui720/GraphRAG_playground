@@ -30,6 +30,19 @@ Four flavors:
 | **Decompose** | compound → sub-questions | "How were Caesar, Pompey and Crassus connected and what happened?" → 3 sub-queries |
 | **Step-back** | specific → more general | "What did Hinton do in 2012?" → "History of deep learning breakthroughs" |
 
+```mermaid
+sequenceDiagram
+  participant U as user
+  participant W as rewriter
+  participant R as retriever
+  participant G as generator
+  U->>W: "what happened to him?"
+  W->>R: "Caesar after the Rubicon"
+  R-->>G: top-k chunks
+  U->>G: original question
+  G-->>U: answer
+```
+
 ## Formulation
 $q' = \text{LLM}_\text{rewrite}(q, h)$, where $h$ is the dialogue history. Retrieval uses $q'$, and generation still sees the **original** $q$.
 

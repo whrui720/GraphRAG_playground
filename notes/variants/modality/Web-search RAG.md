@@ -22,6 +22,20 @@ Use a web search API as the retriever: query → search results → fetch and ex
 ## Intuition
 Your index is a snapshot; the web is live. For "what's the current price/score/policy", no private index helps. The search engine already does the hard first-stage retrieval over billions of pages. Your pipeline only has to pick the best snippets, read them carefully, and cite.
 
+```mermaid
+sequenceDiagram
+  participant U as user
+  participant L as LLM
+  participant S as search API
+  participant P as pages
+  U->>L: question
+  L->>S: keywords
+  S-->>L: URLs, snippets
+  L->>P: fetch (parallel)
+  P-->>L: text (untrusted)
+  L-->>U: answer [1] [2]
+```
+
 ## Formulation
 $R=\text{Search}(q')$ with $q'=\text{rewrite}(q)$ (search engines want keywords, not questions). Fetch pages $\to$ extract main text $\to$ chunk $\to$ score chunks against $q$ (rerank) $\to$ top-$k$ chunks $\to$ generate with inline citations $[i]\mapsto\text{url}_i$.
 

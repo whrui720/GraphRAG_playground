@@ -22,6 +22,15 @@ Run a sparse retriever ([[BM25]]) and a dense retriever ([[Dense retrieval]]) in
 ## Intuition
 Query: "What did the IPCC's AR6 conclude?" Dense retrieval understands "conclude" ≈ "confirmed", but might rank a generic climate paragraph above the one containing "AR6". BM25 nails "AR6" but can't connect "conclude" to "confirmed". Fusing the two ranks the paragraph that both like at the top.
 
+```mermaid
+flowchart LR
+  Q([query]) --> B[BM25 top-100]
+  Q --> D[dense top-100]
+  B --> F[RRF fuse]
+  D --> F
+  F --> R[rerank] --> K([top-5 to LLM])
+```
+
 ## Formulation
 **Option A: rank fusion (no score calibration needed)**
 

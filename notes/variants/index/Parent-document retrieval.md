@@ -24,6 +24,17 @@ Index **small** child chunks (precise matching), but when one matches, return it
 
 **Auto-merging** (LlamaIndex) is a variant: if many children of the same parent are retrieved, replace them with the parent.
 
+```mermaid
+flowchart TB
+  P["parent: the Triumvirate paragraph"] --- c1[child 1]
+  P --- c2["child 2: match"]
+  P --- c3[child 3]
+  Q([question]) -.->|similarity| c2
+  c2 ==>|return the parent| P
+  classDef hit stroke-width:3px
+  class c2 hit
+```
+
 ## Formulation
 Parent map $\pi:\text{child}\to\text{parent}$. Retrieve children $\mathcal C_K(q)$ by similarity, then
 

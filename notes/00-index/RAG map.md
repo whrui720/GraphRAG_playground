@@ -25,6 +25,35 @@ Plus trained architectures ([[Trained retrieval]]) and non-retrieval alternative
 
 **The core trade-off.** Moving from naive → advanced → modular → agentic buys accuracy on harder questions at the cost of latency, money, and debuggability. Move up a tier only when evaluation shows the simpler tier failing.
 
+```mermaid
+flowchart LR
+  Q([query]) --> R[retrieval quality] --> I[index structure] --> A([answer])
+  C[control flow] -.-> R
+  M[source / modality] -.-> I
+```
+
+**Where the variants sit**: a rough qualitative placement to orient yourself, *not* measured data (measured numbers live in [[Leaderboard]]).
+
+```mermaid
+quadrantChart
+  x-axis Cheap and fast --> Costly and slow
+  y-axis Single-fact lookups --> Multi-hop and corpus-wide
+  quadrant-1 Heavy machinery
+  quadrant-2 Sweet spot
+  quadrant-3 Baselines
+  quadrant-4 Precision upgrades
+  Naive RAG: [0.12, 0.15]
+  Hybrid + rerank: [0.3, 0.3]
+  Contextual retrieval: [0.42, 0.38]
+  ColBERT: [0.55, 0.28]
+  RAPTOR: [0.6, 0.66]
+  Vectorless RAG: [0.4, 0.55]
+  GraphRAG: [0.82, 0.8]
+  Iterative retrieval: [0.68, 0.72]
+  Agentic RAG: [0.92, 0.92]
+  CAG small corpus: [0.25, 0.7]
+```
+
 ## In this repo
 
 | Variant | Code | Run it |
@@ -38,34 +67,49 @@ Plus trained architectures ([[Trained retrieval]]) and non-retrieval alternative
 
 The checks are **additive**: a "yes" means add that variant and keep going. They are ordered roughly from cheapest and highest-ROI to most expensive. Answer each check from **observed eval failures**, not upfront guesses.
 
+### Stage 1: shape of the data
+
 ```mermaid
 flowchart TD
-  S([Start: your corpus and queries]) --> Q0{Corpus small and static?<br/>under a few hundred k tokens}
-  Q0 -->|yes| CAG[Long-context / CAG<br/>preload + prompt cache, no retrieval]
-  Q0 -->|no| F[Foundation: hybrid BM25 + dense<br/>+ cross-encoder reranker]
-  F --> Q1{Data lives in tables / a DB?}
-  Q1 -->|yes| SQL[Text-to-SQL RAG<br/>routed alongside text search]
-  Q1 -->|next check| Q2{Charts, scans, slide decks?}
-  Q2 -->|yes| MM[Multimodal RAG<br/>e.g. ColPali page embeddings]
-  Q2 -->|next check| Q3{Chunks lose their context?}
-  Q3 -->|yes| CTX[Contextual retrieval<br/>+ parent-doc / small-to-big]
-  Q3 -->|next check| Q4{Queries vague or conversational?}
-  Q4 -->|yes| QR[Query rewriting<br/>multi-query / RAG-Fusion, HyDE]
-  Q4 -->|next check| Q5{Fine-grained precision on<br/>large specialized corpus?}
-  Q5 -->|yes| CB[ColBERT late interaction<br/>as retriever or reranker]
-  Q5 -->|next check| Q6{Corpus-wide big-picture<br/>questions?}
-  Q6 -->|yes| HIER[RAPTOR tree<br/>or GraphRAG global summaries]
-  Q6 -->|next check| Q7{Relational or multi-hop<br/>questions?}
-  Q7 -->|yes| MH[GraphRAG local traversal<br/>or iterative IRCoT / FLARE]
-  Q7 -->|next check| Q8{Retrieval fails silently<br/>or has coverage gaps?}
-  Q8 -->|yes| CR[Corrective RAG: grade + web fallback<br/>Self-RAG for strict faithfulness]
-  Q8 -->|next check| Q9{Mixed easy / hard traffic<br/>or tight latency budget?}
-  Q9 -->|yes| AD[Adaptive RAG router<br/>Speculative RAG for high volume]
-  Q9 -->|next check| Q10{Many sources and tools,<br/>open-ended tasks?}
-  Q10 -->|yes| AG[Agentic RAG<br/>planner + tools + reflection loop]
-  Q10 -->|next check| E[Evaluate: recall@k, faithfulness,<br/>correctness, latency, cost]
-  E -.->|iterate on failures| Q1
+  Q0(["small, static corpus?"]) -->|yes| CAG[CAG: whole corpus in the prompt]
+  Q0 -->|"no: hybrid + reranker"| Q1(["data in tables?"])
+  Q1 -->|yes| SQL[+ Text-to-SQL]
+  Q1 -->|no| Q2(["charts, scans, slides?"])
+  Q2 -->|yes| MM[+ Multimodal RAG]
 ```
+
+### Stage 2: fix retrieval
+
+```mermaid
+flowchart TD
+  Q3(["chunks lose context?"]) -->|yes| CTX[+ Contextual retrieval, parent-doc]
+  Q3 -->|no| Q4(["vague or chatty queries?"])
+  Q4 -->|yes| QR[+ Query rewriting, multi-query, HyDE]
+  Q4 -->|no| Q5(["need fine-grained precision?"])
+  Q5 -->|yes| CB[+ ColBERT]
+```
+
+### Stage 3: harder questions
+
+```mermaid
+flowchart TD
+  Q6(["corpus-wide questions?"]) -->|yes| H[+ RAPTOR or GraphRAG global]
+  Q6 -->|no| Q7(["multi-hop or relational?"])
+  Q7 -->|yes| MH[+ GraphRAG local, IRCoT / FLARE]
+```
+
+### Stage 4: control flow, then evaluate
+
+```mermaid
+flowchart TD
+  Q8(["silent failures, coverage gaps?"]) -->|yes| CR[+ Corrective RAG or Self-RAG]
+  Q8 -->|no| Q9(["mixed traffic, tight latency?"])
+  Q9 -->|yes| AD[+ Adaptive router, Speculative RAG]
+  Q9 -->|no| Q10(["many sources and tools?"])
+  Q10 -->|yes| AG[+ Agentic RAG]
+```
+
+Then evaluate ([[RAG evaluation]]) and go back to stage 1 with the failures you observed.
 
 Each box maps to a note: [[Cache-Augmented Generation]], [[Hybrid search]] + [[Cross-encoder reranking]], [[Text-to-SQL RAG]], [[Multimodal RAG]], [[Contextual retrieval]] + [[Parent-document retrieval]], [[Query rewriting]] / [[Multi-query RAG-Fusion]] / [[HyDE]], [[ColBERT]], [[RAPTOR]] / [[GraphRAG]], [[Iterative retrieval]], [[Corrective RAG]] / [[Self-RAG]], [[Adaptive RAG]] / [[Speculative RAG]], [[Agentic RAG]], [[RAG evaluation]].
 
@@ -87,6 +131,17 @@ Each box maps to a note: [[Cache-Augmented Generation]], [[Hybrid search]] + [[C
 5. Use iterative or agentic RAG for multi-hop or multi-tool tasks.
 6. Use CAG instead of retrieval if the corpus is small and static.
 7. **Always build the eval set first** (see [[RAG evaluation]]).
+
+## History
+
+| Year | Milestones |
+|---|---|
+| 2020 | [[Trained retrieval\|REALM, RAG]] · [[Dense retrieval\|DPR]] · [[ColBERT]] |
+| 2021 | [[Trained retrieval\|FiD, RETRO]] · [[SPLADE]] |
+| 2022 | [[Trained retrieval\|Atlas]] · [[HyDE]] · [[Iterative retrieval\|IRCoT]] |
+| 2023 | [[Iterative retrieval\|FLARE]] · [[Self-RAG]] · [[RAG evaluation\|RAGAS]] |
+| 2024 | [[RAPTOR]] · [[Corrective RAG\|CRAG]] · [[GraphRAG]] · [[Multimodal RAG\|ColPali]] · [[Contextual retrieval]] · [[Cache-Augmented Generation\|CAG]] |
+| 2025 | [[Vectorless RAG\|PageIndex]] · [[Agentic RAG\|agentic RAG surveys]] |
 
 ## All variants
 

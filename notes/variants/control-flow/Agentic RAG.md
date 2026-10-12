@@ -24,13 +24,12 @@ Every other control-flow variant hard-codes *when* and *what* to retrieve. [[Ada
 
 ```mermaid
 flowchart LR
-  Q[Task] --> P[Think / plan]
-  P --> A{Act: pick tool}
-  A --> V[Vector search] & W[Web] & S[SQL] & G[Graph]
-  V & W & S & G --> O[Observe results]
-  O --> R{Enough? / reflect}
+  P[think,<br/>pick a tool] --> V[vector search]
+  P --> W[web]
+  P --> S[SQL]
+  V & W & S --> O[observe] --> R{{enough?}}
   R -->|no| P
-  R -->|yes| F[Answer with citations]
+  R -->|yes| F([answer])
 ```
 
 ## Formulation

@@ -24,6 +24,19 @@ A chunk that reads *"Revenue grew 3% over the previous quarter"* is unretrievabl
 
 In this repo's corpus: a chunk starting *"After defeating Pompey at the Battle of Pharsalus…, Caesar became master…"* is fine, but a chunk starting mid-sentence *"…they stabbed Caesar 23 times"* loses "Brutus" and "Ides of March", which sit in the previous window.
 
+```mermaid
+flowchart LR
+  D[whole document] --> L[LLM: situate<br/>this chunk]
+  C[chunk i] --> L
+  L --> X[context<br/>+ chunk i]
+  X --> E[embed]
+  X --> B[BM25]
+```
+
+> [!example] Before / after (chunk from this repo's corpus)
+> **Before:** "…they stabbed Caesar 23 times in the Theatre of Pompey. Caesar's death plunged Rome into another round of civil wars."
+> **After:** "*From a history of the late Roman Republic; describes Caesar's assassination by Brutus and Cassius on the Ides of March, 44 BC.* …they stabbed Caesar 23 times…"
+
 ## Formulation
 For document $D$ with chunks $c_1..c_n$:
 

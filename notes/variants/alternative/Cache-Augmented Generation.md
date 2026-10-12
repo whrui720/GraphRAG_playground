@@ -24,6 +24,19 @@ Retrieval exists because the corpus doesn't fit in the prompt. When it *does* fi
 
 **This repo's corpus is ~12.5k characters ≈ 3k tokens.** All three sample documents fit in one prompt with plenty of room. CAG is therefore the obvious *ceiling* baseline for the benchmark: if Naive/Graph/Vectorless RAG score below "just read everything", their retrieval is losing information.
 
+```mermaid
+flowchart LR
+  subgraph rag [RAG, per question]
+    direction TB
+    q1([question]) --> r[retrieve k chunks] --> l1["LLM reads k·s tokens"]
+  end
+  subgraph cag [CAG, per question]
+    direction TB
+    q2([question]) --> l2[LLM reads the<br/>cached corpus]
+  end
+  rag ~~~ cag
+```
+
 ## Formulation
 Corpus $\mathcal D$ with $|\mathcal D|$ tokens. Per query $q$:
 

@@ -30,6 +30,7 @@ ROOT = Path(__file__).resolve().parents[2]
 NOTES_DIR = ROOT / "notes"
 RESULTS_SUBDIR = "results"
 LEADERBOARD = Path("00-index") / "Leaderboard.md"
+FIGURE = "benchmark_overview"   # rendered by rag/viz/figures.py from the latest run
 
 # Frontmatter fields of a result note, in order. tests/test_vault.py checks that
 # every Dataview query over rag-result notes only uses these.
@@ -257,6 +258,8 @@ def build_leaderboard(notes_dir: Path = NOTES_DIR) -> Path:
         "## Latest run per variant",
         "",
         header, sep, *(row(p, fm) for p, fm in latest_rows),
+        *(["", f"![[{FIGURE}-light.svg]]![[{FIGURE}-dark.svg]]"]
+          if (notes_dir / "assets" / "figures" / f"{FIGURE}-light.svg").exists() else []),
         "",
         "## All runs",
         "",

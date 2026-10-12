@@ -24,12 +24,12 @@ Naive RAG has no smoke detector. If retrieval returns five chunks about the wron
 
 ```mermaid
 flowchart LR
-  Q[Question] --> R[Retrieve] --> E{Evaluator<br/>confidence}
-  E -->|Correct| K[Refine: decompose into strips,<br/>keep relevant ones]
-  E -->|Incorrect| W[Rewrite query -> web search]
-  E -->|Ambiguous| K
-  E -->|Ambiguous| W
-  K --> G[Generate]
+  R[retrieve] --> E{{grade docs}}
+  E -->|correct| K[keep relevant strips]
+  E -->|incorrect| W[rewrite query,<br/>web search]
+  E -->|ambiguous| K
+  E -->|ambiguous| W
+  K --> G[generate]
   W --> G
 ```
 

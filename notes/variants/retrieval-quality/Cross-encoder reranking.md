@@ -27,6 +27,27 @@ A [[Dense retrieval|bi-encoder]] compresses the passage into one vector *before 
 
 That accuracy comes from joint encoding, which also means nothing can be precomputed. Scoring a whole corpus would take one forward pass per document per query. Hence the two-stage pattern: **stage 1 optimizes recall, stage 2 optimizes precision.**
 
+```mermaid
+flowchart TD
+  N[(corpus: N chunks)] -->|"stage 1: hybrid search, ms"| C[top 100 candidates]
+  C -->|"stage 2: 100 cross-encoder passes"| R[top 5]
+  R --> L[LLM]
+```
+
+```mermaid
+flowchart LR
+  subgraph bi ["bi-encoder: separate"]
+    direction TB
+    q1[query] --> e1[encoder] --> s1((dot))
+    d1[doc] --> e2[encoder] --> s1
+  end
+  subgraph ce ["cross-encoder: together"]
+    direction TB
+    p["query + doc"] --> e3[encoder] --> s2((score))
+  end
+  bi ~~~ ce
+```
+
 ## Formulation
 Input: `[CLS] query [SEP] passage [SEP]` → transformer → $\mathbf h_{\text{CLS}}\in\mathbb R^{H}$.
 

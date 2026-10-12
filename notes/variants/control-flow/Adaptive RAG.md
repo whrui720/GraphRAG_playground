@@ -24,6 +24,14 @@ Running a multi-hop pipeline on "What is 2+2?" wastes money. Running one retriev
 
 The benchmark here already uses a hand-written router of this kind: `thematic` questions go to GraphRAG global search, everything else to local (`graphrag_method` in [runners.py](../../../rag/eval/runners.py)).
 
+```mermaid
+flowchart LR
+  Q([query]) --> C{{router}}
+  C -->|"A: simple"| N[LLM alone]
+  C -->|"B: one hop"| S[single retrieval]
+  C -->|"C: multi-hop"| M[iterative retrieval]
+```
+
 ## Formulation
 Classifier $g:q\mapsto\{A,B,C\}$ (complexity labels):
 

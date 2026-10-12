@@ -22,6 +22,14 @@ Instead of embedding the *question*, ask an LLM to write a *hypothetical answer 
 ## Intuition
 Questions and answers are different *genres*. "Who organized the Dartmouth Conference?" is short and interrogative. The answer passage is declarative and full of names and dates. An embedding model trained on similarity puts passages near passages. So: generate a passage-shaped guess ("The Dartmouth Conference of 1956 was organized by John McCarthy…") and use it as the query. **The facts in the guess don't need to be right, only its shape and vocabulary.** The real documents supply the facts.
 
+```mermaid
+flowchart TB
+  Q([question]) --> L[LLM writes a hypothetical answer]
+  L --> E[embed the fake answer]
+  E --> S[find the nearest real passages]
+  S --> G[LLM answers from the real passages]
+```
+
 ## Formulation
 Generate $N$ hypothetical documents $\hat d_1..\hat d_N\sim \text{LLM}(\text{"write a passage answering } q\text{"})$, then
 

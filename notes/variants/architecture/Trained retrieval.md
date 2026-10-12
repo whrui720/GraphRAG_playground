@@ -22,6 +22,14 @@ The original RAG research line: the **retriever and generator are trained togeth
 ## Intuition
 In [[Naive RAG]] the retriever never learns whether its picks helped. In trained RAG, the retrieved document is a **latent variable**: the model marginalizes over which document it *could* have used, so gradients flow back into the retriever and reward documents that made the answer more likely. No relevance labels are needed; the downstream loss supplies the signal.
 
+```mermaid
+flowchart TB
+  x([input x]) --> R["retriever p(z | x)"] --> Z[top-k docs z]
+  Z --> G["generator p(y | x, z)"] --> Y([output y])
+  Y -.->|gradient| G
+  Y -.->|"gradient, marginalized over z"| R
+```
+
 ## Formulation
 **REALM** (retrieval as a latent variable, during *pre-training* with masked-LM):
 

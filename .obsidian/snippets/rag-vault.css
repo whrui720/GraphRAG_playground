@@ -1,0 +1,28 @@
+/* RAG vault display rules (enabled in .obsidian/appearance.json).
+   Settings → Appearance → CSS snippets → "rag-vault" toggles it. */
+
+/* Mermaid: never upscale, cap the height, center. Diagrams scale down to fit
+   instead of filling the whole pane. */
+.markdown-rendered .mermaid,
+.markdown-source-view .mermaid {
+  display: flex;
+  justify-content: center;
+}
+.markdown-rendered .mermaid svg,
+.markdown-source-view .mermaid svg {
+  max-width: min(100%, 680px) !important;
+  max-height: 460px;
+  height: auto;
+}
+
+/* Generated figures (notes/assets/figures) come in a light and a dark version;
+   show the one that matches the current theme. */
+.theme-light img[src*="-dark.svg"],
+.theme-dark img[src*="-light.svg"] {
+  display: none !important;
+}
+img[src*="-light.svg"],
+img[src*="-dark.svg"] {
+  max-width: min(100%, 720px);
+  border-radius: 6px;
+}

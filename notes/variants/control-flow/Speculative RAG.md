@@ -22,6 +22,16 @@ Split the retrieved documents into several small, diverse subsets. A **small spe
 ## Intuition
 Named after speculative decoding (a small model proposes, a big model checks). Reading 20 retrieved passages with a frontier model is slow, and the many marginal passages distract it. Instead, several cheap drafters each read a few passages and commit to an answer plus a short rationale. The big model then only has to judge which (answer, rationale) pair is most convincing, which is a much shorter input. Diversity across subsets means at least one draft is likely to have the right evidence.
 
+```mermaid
+flowchart TB
+  D[retrieved docs] --> K[cluster into diverse subsets]
+  K --> d1[drafter: subset 1]
+  K --> d2[drafter: subset 2]
+  K --> d3[drafter: subset 3]
+  d1 & d2 & d3 --> V[verifier scores answer + rationale]
+  V --> A([best draft])
+```
+
 ## Formulation
 1. Embed the retrieved docs $\mathcal D$, cluster them into $k$ groups (k-means), and form $m$ subsets $\delta_1..\delta_m$, each taking one doc from each cluster. This gives diverse perspectives and minimal redundancy.
 2. Drafter $\mathcal M_D$ (small, RAG-instruction-tuned) produces, for each subset, $(\alpha_j,\beta_j)\sim\mathcal M_D(\cdot\mid q,\delta_j)$: answer $\alpha_j$, rationale $\beta_j$.

@@ -16,6 +16,8 @@ tags:
 | [[Naive RAG]] | sample-texts-v1 | [[Naive RAG 2026-10-11T17-31-31\|2026-10-11T17-31-31]] | 0.60 | 1.00 | 1.00 | 1.00 | 2.39 | 764 |
 | [[GraphRAG]] | sample-texts-v1 | [[GraphRAG 2026-10-11T17-31-31\|2026-10-11T17-31-31]] | 0.46 | — | 0.71 | — | 9.48 | — |
 
+![[benchmark_overview-light.svg]]![[benchmark_overview-dark.svg]]
+
 ## All runs
 
 | variant | dataset | run | correctness | faithfulness | entity cov. | ctx recall | latency p50 (s) | prompt tokens |

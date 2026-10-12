@@ -4,8 +4,8 @@ Example 6: Benchmark — Standard RAG vs GraphRAG vs Vectorless RAG
 Runs the variants over the question battery in rag/eval/questions.py, scores
 them (entity coverage, context entity recall, LLM-judged correctness and
 faithfulness), and saves output/benchmark_results.json (+ an archived copy in
-output/runs/). Then writes Obsidian result notes to notes/results/ and rebuilds
-notes/00-index/Leaderboard.md.
+output/runs/). Then writes Obsidian result notes to notes/results/, redraws
+notes/assets/figures/benchmark_overview-*.svg and rebuilds notes/00-index/Leaderboard.md.
 
 Logic lives in rag/eval/; this script is just the CLI.
 
@@ -30,6 +30,7 @@ from rag.eval.benchmark import RESULTS_FILE, run_benchmark, save_results
 from rag.eval.judge import DEFAULT_JUDGE_MODEL, Judge
 from rag.eval.obsidian_export import export_run
 from rag.eval.runners import CONFIGS, RUNNERS
+from rag.viz.figures import benchmark_overview
 
 
 def main():
@@ -56,7 +57,8 @@ def main():
               f"entity_cov={s['entity_coverage']}  p50={s['latency_s_p50']}s")
 
     if not args.no_export:
-        for p in export_run(output):
+        figures = benchmark_overview(output)    # before export, so the leaderboard embeds it
+        for p in [*figures, *export_run(output)]:
             print(f"  wrote {p.relative_to(ROOT)}")
 
 

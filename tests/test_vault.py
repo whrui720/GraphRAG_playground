@@ -3,6 +3,7 @@
 - every note has valid YAML frontmatter with a known `type`
 - variant/concept notes use the schema in notes/00-index/Templates/variant.md
 - every [[wikilink]] (body and frontmatter) resolves to a note, and #headings exist
+- every ![[embed]] of a file (figures) exists, and figures embed both theme versions
 - every relative Markdown link (e.g. to code) points at an existing file
 - Dataview queries only reference fields that the notes actually define
 - every benchmarked variant (rag/eval/registry.py) has a note with a Results query
@@ -24,6 +25,8 @@ ALL_NOTES = sorted(NOTES.rglob("*.md"))
 CONTENT_NOTES = [p for p in ALL_NOTES if TEMPLATES not in p.parents]
 VARIANT_NOTES = [p for p in CONTENT_NOTES if (NOTES / "variants") in p.parents]
 NOTE_NAMES = {p.stem: p for p in ALL_NOTES}
+ATTACHMENTS = {p.name for p in NOTES.rglob("*") if p.is_file() and p.suffix != ".md"}
+FILE_EXTS = {".svg", ".png", ".jpg", ".jpeg", ".gif", ".pdf"}
 
 TYPES = {"rag-variant", "rag-concept", "rag-result", "rag-index"}
 FAMILIES = {"baseline", "retrieval-quality", "index", "control-flow", "modality",
@@ -111,6 +114,9 @@ def test_variant_schema(path):
 def test_wikilinks_resolve(path):
     targets = wikilink_targets(prose(path)) + frontmatter_links(read_frontmatter(path) or {})
     for target in targets:
+        if Path(target).suffix.lower() in FILE_EXTS:
+            assert target in ATTACHMENTS, f"missing attachment ![[{target}]]"
+            continue
         name, _, heading = target.partition("#")
         name = name or path.stem
         assert name in NOTE_NAMES, f"unresolved [[{target}]]"
@@ -124,6 +130,15 @@ def test_relative_links_exist(path):
         if re.match(r"^[a-z]+:", target) or target.startswith("#"):
             continue
         assert (path.parent / target.split("#")[0]).resolve().exists(), f"broken link: {target}"
+
+
+@pytest.mark.parametrize("path", CONTENT_NOTES, ids=rel)
+def test_figures_embed_both_themes(path):
+    embeds = set(re.findall(r"!\[\[([^\]|]+)", prose(path)))
+    for e in embeds:
+        for a, b in [("-light.svg", "-dark.svg"), ("-dark.svg", "-light.svg")]:
+            if e.endswith(a):
+                assert e[: -len(a)] + b in embeds, f"{e} embedded without its {b} twin"
 
 
 def dataview_queries():

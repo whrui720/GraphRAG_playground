@@ -22,6 +22,19 @@ Retrieve over **images of pages** (plus figures, tables, slides), not just extra
 ## Intuition
 A financial report's key number is often in a bar chart; a slide's meaning is in its layout; a scanned contract has no text layer at all. The classic pipeline is OCR → text chunks → embed. It's lossy, brittle and slow. ColPali skips it: *the page image is the document*. A vision-language model (PaliGemma) turns the page into ~1000 patch embeddings, and each query token finds its best-matching patch, the same late-interaction trick [[ColBERT]] uses over text tokens.
 
+```mermaid
+flowchart TB
+  subgraph classic [text pipeline: lossy]
+    direction LR
+    p1[PDF page] --> o[OCR / parse] --> t[text chunks]
+  end
+  subgraph colpali [ColPali: the page is the document]
+    direction LR
+    p2[page image] --> v[VLM encoder] --> pv[~1000 patch<br/>vectors] --> m{{MaxSim with<br/>query tokens}}
+  end
+  classic ~~~ colpali
+```
+
 ## Formulation
 Page image → VLM → patch embeddings $P\in\mathbb R^{n_p\times 128}$ ($n_p\approx1030$ for a 32×32 grid plus special tokens). Query → token embeddings $Q\in\mathbb R^{m\times128}$ (same model, text-only).
 

@@ -22,6 +22,18 @@ The generator itself decides **when** to retrieve and **critiques** its own outp
 ## Intuition
 [[Corrective RAG]] puts a separate inspector between retrieval and generation. Self-RAG trains the writer to be its own inspector, segment by segment: *"I need a fact here → retrieve. Passage 2 is relevant. My sentence is fully supported by it. Keep this continuation."* Because the critique is expressed as token probabilities, you can turn the strictness up or down **at inference time** without retraining.
 
+```mermaid
+stateDiagram-v2
+  direction LR
+  [*] --> Decide
+  Decide --> Write: Retrieve = no
+  Decide --> Fetch: Retrieve = yes
+  Fetch --> Critique: K passages, in parallel
+  Critique --> Decide: keep best segment (IsRel, IsSup)
+  Write --> Decide
+  Decide --> [*]: IsUse, done
+```
+
 ## Formulation
 **Reflection tokens:**
 

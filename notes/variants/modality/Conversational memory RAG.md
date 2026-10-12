@@ -22,6 +22,19 @@ Treat the user's **own past interactions** (facts they told you, preferences, ea
 ## Intuition
 Context windows end and sessions end. A tutor that forgets you struggled with integrals last week isn't much of a tutor. Memory RAG is RAG where the documents are written *by the conversation itself*. Two design questions dominate: **what to write** (raw transcripts are noisy; extracted facts are compact but lossy) and **what to retrieve** (relevant *and* recent *and* important).
 
+```mermaid
+flowchart TB
+  subgraph write [write: after each turn]
+    direction LR
+    T[conversation] --> X[LLM extracts facts] --> M[(memory store)]
+  end
+  subgraph read [read: next session]
+    direction LR
+    Q[new message] --> S[relevance + recency<br/>+ importance] --> P[top memories<br/>into the prompt]
+  end
+  write --> read
+```
+
 ## Formulation
 Memory store $\mathcal M=\{m_i\}$ with text, embedding, timestamp $t_i$, importance $\iota_i$. Retrieval score (Generative Agents):
 

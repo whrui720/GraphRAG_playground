@@ -22,6 +22,15 @@ Have an LLM generate $N$ alternative phrasings of the question, retrieve for eac
 ## Intuition
 Any single phrasing hits one region of embedding space. "Why did the Roman Republic fall?", "causes of the end of the Republic", and "how did Augustus become emperor" each land near different passages. Passages that show up for **several** phrasings are probably central to the question, and RRF rewards exactly that.
 
+```mermaid
+flowchart LR
+  Q([question]) --> L[LLM: 3<br/>rephrasings]
+  L --> r1[retrieve q1]
+  L --> r2[retrieve q2]
+  L --> r3[retrieve q3]
+  r1 & r2 & r3 --> F[RRF] --> K([top-k])
+```
+
 ## Formulation
 $\{q_1..q_N\}=\text{LLM}(q)$ (usually plus the original $q_0=q$).
 

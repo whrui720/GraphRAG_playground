@@ -22,6 +22,17 @@ Embed individual **sentences**. When one matches, return it together with its $\
 ## Intuition
 Single-sentence embeddings are the sharpest possible match, and the neighbors supply the pronoun antecedents and the "why". *"They stabbed Caesar 23 times in the Theatre of Pompey"* matches "How did Caesar die?". The previous sentence ("Brutus and Cassius led a conspiracy…") arrives as part of the window.
 
+```mermaid
+flowchart LR
+  s1[s1] --- s2
+  subgraph W ["returned window, k = 1"]
+    s2[s2] --- s3["s3: match"] --- s4[s4]
+  end
+  s4 --- s5[s5]
+  classDef hit stroke-width:3px
+  class s3 hit
+```
+
 ## Formulation
 Sentences $u_1..u_T$ per document. Retrieve top-$K$ sentences by similarity; for each hit $t$, return
 

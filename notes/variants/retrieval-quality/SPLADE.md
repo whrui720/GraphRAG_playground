@@ -22,6 +22,16 @@ A transformer outputs a **sparse, vocabulary-sized** weight vector for each quer
 ## Intuition
 BM25's weakness is vocabulary mismatch; dense retrieval's weakness is losing exact terms. SPLADE keeps the representation in "word space" (so exact terms survive and you can read the weights), but uses BERT's masked-language-model head to decide *which* words matter and *which related words to add*. A document about "Octavian becoming Augustus" might get nonzero weight on "emperor" and "rome", so it can match a query that uses those words.
 
+```mermaid
+flowchart TB
+  T["'Octavian became Augustus'"] --> B[BERT + MLM head]
+  B --> W["log(1 + ReLU), max-pool over tokens"]
+  W --> V["sparse vector: augustus, octavian, + emperor, rome"]
+  V --> I[(inverted index)]
+```
+
+*Expansion terms (emperor, rome) are illustrative: the model can add words the text never contains.*
+
 ## Formulation
 Let $w_{ij}$ be the MLM logit for vocabulary term $j$ at input position $i$ (from BERT's MLM head). The representation of text $t$ is
 

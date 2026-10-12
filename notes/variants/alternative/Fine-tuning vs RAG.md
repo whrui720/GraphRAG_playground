@@ -31,6 +31,14 @@ Fine-tuning compresses training text into weights. Facts seen a few times are le
 | Better use of retrieved context | RAFT (fine-tune *for* RAG) |
 | Better retrieval in a niche domain | Fine-tune the **embedder** or **reranker** |
 
+```mermaid
+flowchart LR
+  F(["what is failing?"]) -->|format, tone| FT[fine-tune or prompt]
+  F -->|retrieval misses| EM[fine-tune embedder / reranker]
+  F -->|ignores good context| RAFT[RAFT]
+  F -->|missing, stale facts| RAG[RAG: fix the index]
+```
+
 ## Formulation
 **Full fine-tuning** minimizes the next-token loss $\mathcal L=-\sum_t\log p_\theta(y_t\mid x,y_{<t})$ over domain data.
 
@@ -41,6 +49,12 @@ W=W_0+\frac{\alpha}{r}BA,\qquad B\in\mathbb R^{d\times r},\ A\in\mathbb R^{r\tim
 $$
 
 Trainable parameters drop from $dk$ to $r(d+k)$. For $d=k=4096$, $r=8$: 16.8M → 65.5k per matrix (256× fewer).
+
+```mermaid
+flowchart LR
+  x([x]) --> W0["W₀ frozen (d × k)"] --> P((+)) --> h([h])
+  x --> A["A (r × k)"] --> B["B (d × r)"] --> P
+```
 
 **RAFT training example:** (question $Q$, oracle doc $D^*$, distractors $D_1..D_n$) → target = chain-of-thought answer that **quotes** $D^*$. For a fraction $1-P$ of examples, the oracle is *removed*, so the model also learns not to rely blindly on context.
 

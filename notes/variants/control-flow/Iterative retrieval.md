@@ -24,6 +24,28 @@ Interleave retrieving and reasoning: retrieve, reason a step, use that step to d
 
 In this repo's benchmark, `m1` ("trace how the First Triumvirate's collapse led to Augustus") needs ~8 linked events spread over the whole Rome document. Top-5 chunks may miss the middle of the chain.
 
+```mermaid
+sequenceDiagram
+  participant L as LLM
+  participant R as retriever
+  L->>R: the question
+  R-->>L: passages
+  loop until "the answer is ..." or max steps
+    L->>L: write the next reasoning sentence
+    L->>R: that sentence as the query
+    R-->>L: more passages
+  end
+```
+
+*IRCoT, above. FLARE, below, retrieves only when the draft is uncertain:*
+
+```mermaid
+flowchart TB
+  D[draft the next sentence] --> C{{"any token p < θ?"}}
+  C -->|no| K[keep it]
+  C -->|yes| R[retrieve with the draft,<br/>regenerate the sentence]
+```
+
 ## Formulation
 **IRCoT.** Context $C_0=\mathcal C_k(q)$. For $t=1,2,\dots$:
 

@@ -24,6 +24,22 @@ When the answer lives in tables, don't embed rows. Have the LLM write a **SQL (o
 
 The "retrieval" part is about the **schema**. For databases with hundreds of tables, you first retrieve the relevant tables/columns (and example values, and past question→SQL pairs) and put only those in the prompt.
 
+```mermaid
+sequenceDiagram
+  participant U as user
+  participant L as LLM
+  participant DB as database
+  U->>L: question
+  L->>L: pick tables + columns (schema linking)
+  L->>DB: SELECT ... (read-only user)
+  alt SQL error
+    DB-->>L: error message
+    L->>DB: corrected SQL
+  end
+  DB-->>L: rows
+  L-->>U: answer + the SQL used
+```
+
 ## Formulation
 $\text{sql}=\text{LLM}(q,\ \mathcal S_q,\ \mathcal E_q)$ where $\mathcal S_q$ = retrieved schema subset (tables, columns, types, FKs, sample values) and $\mathcal E_q$ = retrieved few-shot (question, SQL) examples. Then $r=\text{exec}(\text{sql})$ and $y=\text{LLM}(q, \text{sql}, r)$.
 
