@@ -8,3 +8,10 @@ output/
 ragtest/output/
 ragtest/cache/
 *.parquet
+
+# Obsidian: commit settings, not per-machine UI state
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json
+.obsidian/cache
+
+.pytest_cache/

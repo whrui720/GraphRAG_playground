@@ -2,7 +2,7 @@
 
 Standard and Vectorless RAG instances are cached as `@st.cache_resource`
 singletons that load their precomputed indexes once. GraphRAG runs as a
-subprocess (matching examples/06_benchmark.py) — the most stable path across
+subprocess (matching rag/eval/runners.py) — the most stable path across
 graphrag versions.
 """
 from __future__ import annotations

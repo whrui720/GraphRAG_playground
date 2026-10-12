@@ -560,3 +560,282 @@
   "tokens_per_response": 0.0,
   "cost_per_response": 0.0
 }
+2026-10-11 17:34:06.0480 - INFO - graphrag_llm.metrics.log_metrics_writer - Metrics for openai/gemini-embedding-001: {
+  "attempted_request_count": 1,
+  "successful_response_count": 1,
+  "failed_response_count": 0,
+  "failure_rate": 0.0,
+  "requests_with_retries": 0,
+  "retries": 0,
+  "retry_rate": 0.0,
+  "compute_duration_seconds": 2.0466997623443604,
+  "compute_duration_per_response_seconds": 2.0466997623443604,
+  "cache_hit_rate": 0.0,
+  "streaming_responses": 0,
+  "tokens_per_response": 0.0,
+  "cost_per_response": 0.0
+}
+2026-10-11 17:34:06.0480 - INFO - graphrag_llm.metrics.log_metrics_writer - Metrics for openai/gemini-2.5-flash: {
+  "attempted_request_count": 1,
+  "successful_response_count": 1,
+  "failed_response_count": 0,
+  "failure_rate": 0.0,
+  "requests_with_retries": 0,
+  "retries": 0,
+  "retry_rate": 0.0,
+  "compute_duration_seconds": 0,
+  "compute_duration_per_response_seconds": 0.0,
+  "cache_hit_rate": 0.0,
+  "streaming_responses": 1,
+  "tokens_per_response": 0.0,
+  "cost_per_response": 0.0
+}
+2026-10-11 17:34:13.0113 - INFO - graphrag_llm.metrics.log_metrics_writer - Metrics for openai/gemini-embedding-001: {
+  "attempted_request_count": 1,
+  "successful_response_count": 1,
+  "failed_response_count": 0,
+  "failure_rate": 0.0,
+  "requests_with_retries": 0,
+  "retries": 0,
+  "retry_rate": 0.0,
+  "compute_duration_seconds": 0.5393490791320801,
+  "compute_duration_per_response_seconds": 0.5393490791320801,
+  "cache_hit_rate": 0.0,
+  "streaming_responses": 0,
+  "tokens_per_response": 0.0,
+  "cost_per_response": 0.0
+}
+2026-10-11 17:34:13.0113 - INFO - graphrag_llm.metrics.log_metrics_writer - Metrics for openai/gemini-2.5-flash: {
+  "attempted_request_count": 1,
+  "successful_response_count": 1,
+  "failed_response_count": 0,
+  "failure_rate": 0.0,
+  "requests_with_retries": 0,
+  "retries": 0,
+  "retry_rate": 0.0,
+  "compute_duration_seconds": 0,
+  "compute_duration_per_response_seconds": 0.0,
+  "cache_hit_rate": 0.0,
+  "streaming_responses": 1,
+  "tokens_per_response": 0.0,
+  "cost_per_response": 0.0
+}
+2026-10-11 17:34:20.0635 - INFO - graphrag_llm.metrics.log_metrics_writer - Metrics for openai/gemini-embedding-001: {
+  "attempted_request_count": 1,
+  "successful_response_count": 1,
+  "failed_response_count": 0,
+  "failure_rate": 0.0,
+  "requests_with_retries": 0,
+  "retries": 0,
+  "retry_rate": 0.0,
+  "compute_duration_seconds": 0.5128881931304932,
+  "compute_duration_per_response_seconds": 0.5128881931304932,
+  "cache_hit_rate": 0.0,
+  "streaming_responses": 0,
+  "tokens_per_response": 0.0,
+  "cost_per_response": 0.0
+}
+2026-10-11 17:34:20.0635 - INFO - graphrag_llm.metrics.log_metrics_writer - Metrics for openai/gemini-2.5-flash: {
+  "attempted_request_count": 1,
+  "successful_response_count": 1,
+  "failed_response_count": 0,
+  "failure_rate": 0.0,
+  "requests_with_retries": 0,
+  "retries": 0,
+  "retry_rate": 0.0,
+  "compute_duration_seconds": 0,
+  "compute_duration_per_response_seconds": 0.0,
+  "cache_hit_rate": 0.0,
+  "streaming_responses": 1,
+  "tokens_per_response": 0.0,
+  "cost_per_response": 0.0
+}
+2026-10-11 17:34:33.0535 - INFO - graphrag_llm.metrics.log_metrics_writer - Metrics for openai/gemini-embedding-001: {
+  "attempted_request_count": 1,
+  "successful_response_count": 1,
+  "failed_response_count": 0,
+  "failure_rate": 0.0,
+  "requests_with_retries": 0,
+  "retries": 0,
+  "retry_rate": 0.0,
+  "compute_duration_seconds": 0.5289337635040283,
+  "compute_duration_per_response_seconds": 0.5289337635040283,
+  "cache_hit_rate": 0.0,
+  "streaming_responses": 0,
+  "tokens_per_response": 0.0,
+  "cost_per_response": 0.0
+}
+2026-10-11 17:34:33.0535 - INFO - graphrag_llm.metrics.log_metrics_writer - Metrics for openai/gemini-2.5-flash: {
+  "attempted_request_count": 1,
+  "successful_response_count": 1,
+  "failed_response_count": 0,
+  "failure_rate": 0.0,
+  "requests_with_retries": 0,
+  "retries": 0,
+  "retry_rate": 0.0,
+  "compute_duration_seconds": 0,
+  "compute_duration_per_response_seconds": 0.0,
+  "cache_hit_rate": 0.0,
+  "streaming_responses": 1,
+  "tokens_per_response": 0.0,
+  "cost_per_response": 0.0
+}
+2026-10-11 17:34:42.0641 - INFO - graphrag_llm.metrics.log_metrics_writer - Metrics for openai/gemini-embedding-001: {
+  "attempted_request_count": 1,
+  "successful_response_count": 1,
+  "failed_response_count": 0,
+  "failure_rate": 0.0,
+  "requests_with_retries": 0,
+  "retries": 0,
+  "retry_rate": 0.0,
+  "compute_duration_seconds": 0.5434730052947998,
+  "compute_duration_per_response_seconds": 0.5434730052947998,
+  "cache_hit_rate": 0.0,
+  "streaming_responses": 0,
+  "tokens_per_response": 0.0,
+  "cost_per_response": 0.0
+}
+2026-10-11 17:34:42.0641 - INFO - graphrag_llm.metrics.log_metrics_writer - Metrics for openai/gemini-2.5-flash: {
+  "attempted_request_count": 1,
+  "successful_response_count": 1,
+  "failed_response_count": 0,
+  "failure_rate": 0.0,
+  "requests_with_retries": 0,
+  "retries": 0,
+  "retry_rate": 0.0,
+  "compute_duration_seconds": 0,
+  "compute_duration_per_response_seconds": 0.0,
+  "cache_hit_rate": 0.0,
+  "streaming_responses": 1,
+  "tokens_per_response": 0.0,
+  "cost_per_response": 0.0
+}
+2026-10-11 17:34:52.0492 - INFO - graphrag_llm.metrics.log_metrics_writer - Metrics for openai/gemini-embedding-001: {
+  "attempted_request_count": 1,
+  "successful_response_count": 1,
+  "failed_response_count": 0,
+  "failure_rate": 0.0,
+  "requests_with_retries": 0,
+  "retries": 0,
+  "retry_rate": 0.0,
+  "compute_duration_seconds": 0.6338756084442139,
+  "compute_duration_per_response_seconds": 0.6338756084442139,
+  "cache_hit_rate": 0.0,
+  "streaming_responses": 0,
+  "tokens_per_response": 0.0,
+  "cost_per_response": 0.0
+}
+2026-10-11 17:34:52.0492 - INFO - graphrag_llm.metrics.log_metrics_writer - Metrics for openai/gemini-2.5-flash: {
+  "attempted_request_count": 1,
+  "successful_response_count": 1,
+  "failed_response_count": 0,
+  "failure_rate": 0.0,
+  "requests_with_retries": 0,
+  "retries": 0,
+  "retry_rate": 0.0,
+  "compute_duration_seconds": 0,
+  "compute_duration_per_response_seconds": 0.0,
+  "cache_hit_rate": 0.0,
+  "streaming_responses": 1,
+  "tokens_per_response": 0.0,
+  "cost_per_response": 0.0
+}
+2026-10-11 17:34:58.0956 - WARNING - graphrag.query.llm.text_utils - Error decoding faulty json, attempting repair
+2026-10-11 17:35:01.0019 - INFO - graphrag_llm.metrics.log_metrics_writer - Metrics for openai/gemini-2.5-flash: {
+  "attempted_request_count": 2,
+  "successful_response_count": 2,
+  "failed_response_count": 0,
+  "failure_rate": 0.0,
+  "requests_with_retries": 0,
+  "retries": 0,
+  "retry_rate": 0.0,
+  "compute_duration_seconds": 2.0624566078186035,
+  "compute_duration_per_response_seconds": 2.0624566078186035,
+  "cache_hit_rate": 0.0,
+  "streaming_responses": 1,
+  "responses_with_tokens": 1,
+  "prompt_tokens": 6666,
+  "completion_tokens": 195,
+  "total_tokens": 6861,
+  "tokens_per_response": 6861.0,
+  "cost_per_response": 0.0
+}
+2026-10-11 17:35:32.0157 - INFO - graphrag_llm.metrics.log_metrics_writer - Metrics for openai/gemini-2.5-flash: {
+  "attempted_request_count": 2,
+  "successful_response_count": 2,
+  "failed_response_count": 0,
+  "failure_rate": 0.0,
+  "requests_with_retries": 0,
+  "retries": 0,
+  "retry_rate": 0.0,
+  "compute_duration_seconds": 10.328623056411743,
+  "compute_duration_per_response_seconds": 10.328623056411743,
+  "cache_hit_rate": 0.0,
+  "streaming_responses": 1,
+  "responses_with_tokens": 1,
+  "prompt_tokens": 6663,
+  "completion_tokens": 692,
+  "total_tokens": 7355,
+  "tokens_per_response": 7355.0,
+  "cost_per_response": 0.0
+}
+2026-10-11 17:35:43.0824 - INFO - graphrag_llm.metrics.log_metrics_writer - Metrics for openai/gemini-embedding-001: {
+  "attempted_request_count": 1,
+  "successful_response_count": 1,
+  "failed_response_count": 0,
+  "failure_rate": 0.0,
+  "requests_with_retries": 0,
+  "retries": 0,
+  "retry_rate": 0.0,
+  "compute_duration_seconds": 0.5178637504577637,
+  "compute_duration_per_response_seconds": 0.5178637504577637,
+  "cache_hit_rate": 0.0,
+  "streaming_responses": 0,
+  "tokens_per_response": 0.0,
+  "cost_per_response": 0.0
+}
+2026-10-11 17:35:43.0824 - INFO - graphrag_llm.metrics.log_metrics_writer - Metrics for openai/gemini-2.5-flash: {
+  "attempted_request_count": 1,
+  "successful_response_count": 1,
+  "failed_response_count": 0,
+  "failure_rate": 0.0,
+  "requests_with_retries": 0,
+  "retries": 0,
+  "retry_rate": 0.0,
+  "compute_duration_seconds": 0,
+  "compute_duration_per_response_seconds": 0.0,
+  "cache_hit_rate": 0.0,
+  "streaming_responses": 1,
+  "tokens_per_response": 0.0,
+  "cost_per_response": 0.0
+}
+2026-10-11 17:35:49.0863 - INFO - graphrag_llm.metrics.log_metrics_writer - Metrics for openai/gemini-embedding-001: {
+  "attempted_request_count": 1,
+  "successful_response_count": 1,
+  "failed_response_count": 0,
+  "failure_rate": 0.0,
+  "requests_with_retries": 0,
+  "retries": 0,
+  "retry_rate": 0.0,
+  "compute_duration_seconds": 0.4969184398651123,
+  "compute_duration_per_response_seconds": 0.4969184398651123,
+  "cache_hit_rate": 0.0,
+  "streaming_responses": 0,
+  "tokens_per_response": 0.0,
+  "cost_per_response": 0.0
+}
+2026-10-11 17:35:49.0863 - INFO - graphrag_llm.metrics.log_metrics_writer - Metrics for openai/gemini-2.5-flash: {
+  "attempted_request_count": 1,
+  "successful_response_count": 1,
+  "failed_response_count": 0,
+  "failure_rate": 0.0,
+  "requests_with_retries": 0,
+  "retries": 0,
+  "retry_rate": 0.0,
+  "compute_duration_seconds": 0,
+  "compute_duration_per_response_seconds": 0.0,
+  "cache_hit_rate": 0.0,
+  "streaming_responses": 1,
+  "tokens_per_response": 0.0,
+  "cost_per_response": 0.0
+}

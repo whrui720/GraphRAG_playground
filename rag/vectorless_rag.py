@@ -20,6 +20,8 @@ import os
 from dataclasses import dataclass, field
 from pathlib import Path
 
+from .utils import parse_llm_json
+
 
 # ── Data classes ──────────────────────────────────────────────────────────────
 
@@ -83,6 +85,8 @@ class VectorlessResult:
     answer: str
     retrieved_nodes: list[RetrievedNode]
     thinking: str   # LLM's step-by-step reasoning for node selection
+    prompt_tokens: int = 0       # summed over the retrieval + answer calls
+    completion_tokens: int = 0
 
 
 # ── Prompts ───────────────────────────────────────────────────────────────────
@@ -194,6 +198,7 @@ class VectorlessRAG:
 
         self._index: list[DocumentNode] = []            # root nodes
         self._doc_lines: dict[str, list[str]] = {}      # source -> lines
+        self._usage = [0, 0]                            # [prompt, completion] tokens since last reset
 
     # ── LLM helpers ───────────────────────────────────────────────────────────
 
@@ -219,16 +224,13 @@ class VectorlessRAG:
                 f"LLM returned no text (finish_reason={finish}). "
                 f"Usage: {getattr(response, 'usage_metadata', '')}"
             )
+        usage = getattr(response, "usage_metadata", None)
+        self._usage[0] += getattr(usage, "prompt_token_count", 0) or 0
+        self._usage[1] += getattr(usage, "candidates_token_count", 0) or 0
         return response.text.strip()
 
     def _parse_json(self, text: str) -> dict:
-        """Parse JSON from LLM output, tolerating markdown code fences."""
-        text = text.strip()
-        if text.startswith("```"):
-            lines = text.splitlines()
-            # drop first line (```json or ```) and last line (```)
-            text = "\n".join(lines[1:-1])
-        return json.loads(text)
+        return parse_llm_json(text)
 
     # ── Indexing ──────────────────────────────────────────────────────────────
 
@@ -347,6 +349,7 @@ class VectorlessRAG:
 
     def query(self, question: str, max_nodes: int = 5) -> VectorlessResult:
         """End-to-end: retrieve relevant nodes then generate an answer."""
+        self._usage = [0, 0]
         retrieved, thinking = self.retrieve(question, max_nodes=max_nodes)
 
         sections = "\n\n".join(
@@ -363,6 +366,8 @@ class VectorlessRAG:
             answer=answer,
             retrieved_nodes=retrieved,
             thinking=thinking,
+            prompt_tokens=self._usage[0],
+            completion_tokens=self._usage[1],
         )
 
     # ── Persistence ───────────────────────────────────────────────────────────

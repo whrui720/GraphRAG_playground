@@ -1,4 +1,5 @@
 graphrag
+google-genai
 google-generativeai
 jupyter
 ipykernel
@@ -9,3 +10,5 @@ streamlit
 pyvis
 pandas
 pyarrow
+pyyaml
+pytest
